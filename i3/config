@@ -1,0 +1,262 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+set $mod Mod4
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:DejaVu Sans Mono 9
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# lock screen
+bindsym $mod+shift+x exec ~/.config/i3/i3exit lock
+
+# start j4-dmenu (a program launcher)
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+k layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# media keys
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
+bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# focus doesn't follow mouse
+focus_follows_mouse no
+
+# switch the DVI monitor as primary and to the left of the VGA monitor
+# declare all the workspaces
+set $ws1 "1 "
+set $ws2 "2 "
+set $ws3 "3 "
+set $ws4 "4 "
+set $ws5 "5 "
+set $ws6 "6 "
+set $ws7 "7 "
+set $ws8 "8 "
+set $ws9 "9 "
+
+# assign workspaces to specific monitors
+set $left_display HDMI1
+set $right_display VGA1
+workspace $ws1 output $left_display
+workspace $ws2 output $left_display
+workspace $ws3 output $left_display
+workspace $ws4 output $left_display
+workspace $ws5 output $right_display
+workspace $ws6 output $right_display
+workspace $ws7 output $right_display
+workspace $ws8 output $right_display
+workspace $ws9 output $right_display
+
+# correct handling of floating dialogs
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+# automatically focus when a new window is created with the following criteria
+for_window [class="(?i)xterm"] focus
+# for_window [class="(?i)spotify"] fullscreen
+for_window [class="(?i)xfce4-notifyd"] floating enable; border none; focus mode_toggle
+
+# automatically show cmatrix fullscreen
+for_window [class="(?i)xterm"] fullscreen
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+
+# switch to workspace with keypad
+bindsym $mod+KP_1 workspace $ws1
+bindsym $mod+KP_2 workspace $ws2
+bindsym $mod+KP_3 workspace $ws3
+bindsym $mod+KP_4 workspace $ws4
+bindsym $mod+KP_5 workspace $ws5
+bindsym $mod+KP_6 workspace $ws6
+bindsym $mod+KP_7 workspace $ws7
+bindsym $mod+KP_8 workspace $ws8
+bindsym $mod+KP_9 workspace $ws9
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+
+bindsym $mod+Shift+KP_1 move container to workspace $ws1
+bindsym $mod+Shift+KP_2 move container to workspace $ws2
+bindsym $mod+Shift+KP_3 move container to workspace $ws3
+bindsym $mod+Shift+KP_4 move container to workspace $ws4
+bindsym $mod+Shift+KP_5 move container to workspace $ws5
+bindsym $mod+Shift+KP_6 move container to workspace $ws6
+bindsym $mod+Shift+KP_7 move container to workspace $ws7
+bindsym $mod+Shift+KP_8 move container to workspace $ws8
+bindsym $mod+Shift+KP_9 move container to workspace $ws9
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # Pressing left will shrink the window’s width.
+        # Pressing right will grow the window’s width.
+        # Pressing up will shrink the window’s height.
+        # Pressing down will grow the window’s height.
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+set $mode_system Exit (s) shutdown, (r) reboot, (l) lock, (e) logout, (u) suspend, (h) hibernate
+mode "$mode_system" {
+    bindsym s exec --no-startup-id ~/.config/i3/i3exit shutdown, mode "default"
+    bindsym r exec --no-startup-id ~/.config/i3/i3exit reboot, mode "default"
+    bindsym l exec --no-startup-id ~/.config/i3/i3exit lock, mode "default"
+    bindsym e exec --no-startup-id ~/.config/i3/i3exit logout, mode "default"
+    bindsym u exec --no-startup-id ~/.config/i3/i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id ~/.config/i3/i3exit hibernate, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+shift+e mode "$mode_system"
+
+set $lblue #4C9ED9
+set $dblue #2D5B7D
+set $lgrey #EBECED
+set $dgrey #555555
+set $white #FFFFFF
+set $black #000000
+set $red   #DD0000
+
+#                       border  backgr  text   indicator
+client.focused          $white  $lblue  $white $lgrey
+client.focused_inactive $lgrey  $dgrey  $lgrey $lgrey
+client.unfocused        $dgrey  $black  $lgrey $black
+client.urgent           $white  $red    $white $red
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        status_command i3status
+	tray_output $left_display
+	mode dock
+        font pango: DejaVu Sans Mono, FontAwesome 10
+}
+
+# assign programs to workspaces
+assign [class="google-chrome"] $ws1
+assign [class="firefox"] $ws2
+assign [class="jetbrains-idea"] $ws3
+assign [class="(?i)atom"] $ws4
+assign [class="(?i)gnome-terminal"] $ws5
+assign [class="(?i)spotify"] $ws8
+
+# set displays to correct position
+exec --no-startup-id xrandr --output HDMI-1 --primary --left-of VGA-1
+
+# start compositor
+exec --no-startup-id compton -Cb --config ~/.config/i3/compton.conf
+
+# restore wallpaper
+exec --no-startup-id nitrogen --restore
+
+# GNOME integration
+#exec --no-startup-id nm-applet
+
+# launch web browser and spotify
+exec --no-startup-id spotify
+exec --no-startup-id google-chrome --pinned-tab-count=5
+
+# launch the button listener
+# exec --no-startup-id /home/gferon/Development/python/VerySeriousButton.py
+
+# first `pip install quickswitch-i3`
+bindsym $mod+s exec --no-startup-id quickswitch.py --dmenu "dmenu -i -l 20"
+
+# take a screenshot
+bindsym --release Print exec --no-startup-id gnome-screenshot -w
+
+# sink volume to 50% on start
+exec pactl set-sink-volume 0 50%
+
+# browser tab workspace layout = tab
+exec --no-startup-id i3-msg 'workspace $ws1; layout tabbed;'
