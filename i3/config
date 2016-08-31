@@ -11,7 +11,7 @@ font pango:DejaVu Sans Mono 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec xfce4-terminal --hide-toolbar --hide-menubar --maximize
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -247,14 +247,15 @@ assign [class="google-chrome"] $ws1
 assign [class="firefox"] $ws2
 assign [class="jetbrains-idea"] $ws3
 assign [class="(?i)atom"] $ws4
-assign [class="(?i)gnome-terminal"] $ws5
+assign [class="(?i)xfce4-terminal"] $ws5
 assign [class="(?i)spotify"] $ws8
 
 # set displays to correct position
 exec --no-startup-id xrandr --output HDMI-1 --primary --left-of VGA-1
 
 # start compositor
-exec --no-startup-id compton -Cb --config ~/.config/i3/compton.conf
+exec --no-startup-id compton -Cb 
+#--config ~/.config/i3/compton.conf
 
 # restore wallpaper
 exec --no-startup-id nitrogen --restore
