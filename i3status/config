@@ -7,15 +7,21 @@
 # If the above line is not correctly displayed, fix your editor first!
 
 general {
-        colors = false
+        colors = true
         interval = 1
 }
 
-order += "cpu_usage"
+order += "sysdata"
 order += "disk /"
-order += "ethernet enp2s0"
-order += "volume master"
-order += "tztime local"
+order += "ethernet enp0s31f6"
+order += "wifi wlp1s0"
+order += "volume_status"
+#order += "weather_yahoo"
+order += "spotify"
+order += "clock"
+
+sysdata {
+}
 
 ethernet enp2s0 {
         # if you use %speed, i3status requires root privileges
@@ -35,10 +41,20 @@ disk "/" {
         format = "%avail"
 }
 
-volume master {
-        format = "Vol: %volume"
-        format_muted = "Vol: muted (%volume)"
-        device = "default"
-        mixer = "Master"
-        mixer_idx = 0
+volume_status {
+}
+
+spotify {
+	format_down = ""
+}
+
+weather_yahoo {
+	woeid = "638242"
+	format_today = "Now: {icon}{temp}°{units} {text}"
+	forecast_days = 3		
+}
+
+clock {
+	format = "Berlin {Europe/Berlin}"
+	format_time = "%Y-%m-%d %H:%M:%S"
 }

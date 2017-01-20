@@ -1,5 +1,6 @@
 "*":
   core:
+    telemetryConsent: "limited"
     themes: [
       "one-dark-ui"
       "firewatch-syntax"
@@ -8,5 +9,6 @@
     fontSize: 12
   "exception-reporting":
     userId: "38480071-260a-146b-1271-d82ceffab4e4"
+  minimap: {}
   welcome:
     showOnStartup: false
