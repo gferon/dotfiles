@@ -264,7 +264,6 @@ exec --no-startup-id nitrogen --restore
 exec --no-startup-id gnome-settings-daemon
 exec --no-startup-id bash -ac 'eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)'
 exec --no-startup-id nm-applet
-exec --no-startup-id pasystray
 
 # launch the button listener
 # exec --no-startup-id /home/gferon/Development/python/VerySeriousButton.py
