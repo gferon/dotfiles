@@ -6,7 +6,7 @@
       "firewatch-syntax"
     ]
   editor:
-    fontSize: 12
+    fontSize: 24
   "exception-reporting":
     userId: "38480071-260a-146b-1271-d82ceffab4e4"
   minimap: {}

@@ -11,6 +11,7 @@ if [ -x $(command_exists i3) ]; then
   rm -f ~/.config/i3status
   ln -s $PWD/i3 ~/.config/i3
   ln -s $PWD/i3status ~/.config/i3status
+  echo "if you didn't do it already, you should cd i3-gnome; run make install"
 fi
 
 if [ -x $(command_exists apm) ]; then

@@ -61,6 +61,8 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
 bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -261,15 +263,15 @@ exec --no-startup-id compton
 exec --no-startup-id nitrogen --restore
 
 # GNOME integration
-exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id bash -ac 'eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)'
-exec --no-startup-id nm-applet
+#exec --no-startup-id gnome-settings-daemon
+#exec --no-startup-id bash -ac 'eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)'
+#exec --no-startup-id nm-applet
 
 # launch the button listener
 # exec --no-startup-id /home/gferon/Development/python/VerySeriousButton.py
 
 # take a screenshot
-bindsym --release Print exec --no-startup-id gnome-screenshot -w
+#bindsym --release Print exec --no-startup-id gnome-screenshot -w
 
 # sink volume to 50% on start
 exec --no-startup-id pactl set-sink-volume 0 50%
