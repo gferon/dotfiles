@@ -11,7 +11,7 @@ font pango:DejaVu Sans Mono, fontello 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec xfce4-terminal --hide-menubar
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -55,14 +55,14 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # media keys
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
+#bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+#bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
+#bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
 bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 20 
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -174,12 +174,6 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
@@ -253,29 +247,19 @@ assign [class="firefox"] $ws2
 assign [class="(?i)spotify"] $ws9
 assign [class="(?i)pidgin" ] $ws8
 
-# set displays to docked mode
-# exec --no-startup-id ~/.config/i3/screenlayout/docked.sh
+# Screenshooter
+bindsym --release Print exec xfce4-screenshooter -f -s "$HOME/Pictures"
+bindsym --release $mod+Print exec xfce4-screenshooter -w -s "$HOME/Pictures"
+
+# XFCE integration
+exec --no-startup-id xfsettingsd --sm-client-disable --no-daemon
+exec --no-startup-id xfce4-volumed --no-daemon
+exec --no-startup-id xfce4-power-manager --no-daemon
+exec --no-startup-id xfce4-panel --disable-wm-check
+#exec --no-startup-id nm-applet
 
 # start compositor
 exec --no-startup-id compton
 
 # restore wallpaper
 exec --no-startup-id nitrogen --restore
-
-# GNOME integration
-#exec --no-startup-id gnome-settings-daemon
-#exec --no-startup-id bash -ac 'eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)'
-#exec --no-startup-id nm-applet
-
-# launch the button listener
-# exec --no-startup-id /home/gferon/Development/python/VerySeriousButton.py
-
-# take a screenshot
-#bindsym --release Print exec --no-startup-id gnome-screenshot -w
-
-# sink volume to 50% on start
-exec --no-startup-id pactl set-sink-volume 0 50%
-
-# browser tab workspace layout = tab
-exec --no-startup-id i3-msg 'workspace $ws1; layout tabbed;'
-

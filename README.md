@@ -4,6 +4,8 @@ My humble collection of .dotfiles I use at work and at home for any dev workstat
 
 For Debian/Ubuntu based distributions:
 
+This i3 configuration requires an install of XFCE / Xubuntu.
+
 ```
 # Atom
 add-apt-repository ppa:webupd8team/atom
