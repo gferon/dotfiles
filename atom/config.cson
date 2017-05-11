@@ -1,12 +1,16 @@
 "*":
   core:
+    autoHideMenuBar: true
+    disabledPackages: [
+      "language-gfm"
+    ]
     telemetryConsent: "limited"
     themes: [
       "one-dark-ui"
       "firewatch-syntax"
     ]
   editor:
-    fontSize: 17
+    fontSize: 13
   "exception-reporting":
     userId: "38480071-260a-146b-1271-d82ceffab4e4"
   minimap: {}

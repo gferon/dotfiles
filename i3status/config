@@ -16,6 +16,7 @@ order += "disk /"
 order += "volume_status"
 #order += "weather_yahoo"
 order += "spotify"
+order += "keyboard_layout"
 order += "clock"
 
 sysdata {
@@ -37,6 +38,12 @@ cpu_usage {
 
 disk "/" {
     format = "%avail"
+}
+
+keyboard_layout {
+
+    on_click 1 = "exec setxkbmap us; refresh"
+    on_click 3 = "exec setxkbmap fr; refresh"
 }
 
 volume_status {
@@ -69,6 +76,6 @@ weather_yahoo {
 }
 
 clock {
-    format = "Berlin {Europe/Berlin}"
     format_time = "%Y-%m-%d %H:%M:%S"
 }
+
