@@ -1,18 +1,14 @@
 "*":
+  "clang-format":
+    executable: "/usr/bin/clang-format-3.7"
   core:
-    autoHideMenuBar: true
     disabledPackages: [
       "language-gfm"
     ]
     telemetryConsent: "limited"
-    themes: [
-      "one-dark-ui"
-      "firewatch-syntax"
-    ]
   editor:
-    fontSize: 13
+    fontSize: 17
   "exception-reporting":
-    userId: "38480071-260a-146b-1271-d82ceffab4e4"
-  minimap: {}
+    userId: "e19955c9-8d5f-4ef5-8dd5-a2cf9390fbc2"
   welcome:
     showOnStartup: false

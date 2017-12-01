@@ -17,6 +17,8 @@ order += "volume_status"
 #order += "weather_yahoo"
 order += "spotify"
 order += "keyboard_layout"
+order += "battery_level"
+#order += "bitcoin_price"
 order += "clock"
 
 sysdata {
@@ -46,6 +48,9 @@ keyboard_layout {
     on_click 3 = "exec setxkbmap fr; refresh"
 }
 
+battery_level {
+}
+
 volume_status {
     button_up = 1
     button_down = 3
@@ -69,10 +74,9 @@ spotify {
     format_down = ""
 }
 
-weather_yahoo {
-    woeid = "638242"
-    format_today = "Now: {icon}{temp}°{units} {text}"
-    forecast_days = 3		
+bitcoin_price {
+    format_bitcoin = "BTC: {price}{symbol}"
+    markets = "krakenEUR"
 }
 
 clock {

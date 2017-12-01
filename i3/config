@@ -27,7 +27,6 @@ bindsym $mod+l exec ~/.config/i3/i3exit lock
 
 # start i3-dmenu-desktop (a program launcher)
 bindsym $mod+d exec i3-dmenu-desktop
-#bindsym $mod+d exec rofi -show run
 bindsym Mod1+Tab exec rofi -show window 
 
 # change focus
@@ -66,6 +65,13 @@ bindsym $mod+space focus mode_toggle
 bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+
+# switch screens
+bindsym $mod+Shift+F1 exec notify-send "Switched to laptop display only" && ~/.screenlayout/laptop.sh
+bindsym $mod+Shift+F2 exec notify-send "Switched to extended desk displays" && ~/.screenlayout/desk.sh
+bindsym $mod+Shift+F3 exec arandr
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -76,27 +82,26 @@ bindsym $mod+a focus parent
 # focus doesn't follow mouse
 focus_follows_mouse no
 
-# switch the DVI monitor as primary and to the left of the VGA monitor
 # declare all the workspaces
-set $ws1 "1  "
-set $ws2 "2  "
+set $ws1 "1  "
+set $ws2 "2  "
 set $ws3 "3  "
 set $ws4 "4  "
-set $ws5 "5  "
-set $ws6 "6  "
-set $ws7 "7  "
-set $ws8 "8  "
+set $ws5 "5  "
+set $ws6 "6  "
+set $ws7 "7  "
+set $ws8 "8  "
 set $ws9 "9  "
 
 # assign workspaces to specific monitors
 set $int_display eDP1
-set $left_display DP-1-1
-set $right_display DP-1-2
+set $left_display DP1-1
+set $right_display DP1-2
 workspace $ws1 output $left_display
 workspace $ws2 output $left_display
 workspace $ws3 output $left_display
 workspace $ws4 output $left_display
-workspace $ws5 output $right_display
+workspace $ws5 output $left_display
 workspace $ws6 output $right_display
 workspace $ws7 output $right_display
 workspace $ws8 output $right_display
@@ -105,11 +110,6 @@ workspace $ws9 output $right_display
 # correct handling of floating dialogs
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
-
-# automatically focus when a new window is created with the following criteria
-for_window [class="xterm"] focus
-for_window [class="(?i)spotify"] fullscreen
-for_window [class="(?i)xfce4-notifyd"] floating enable; border none; focus mode_toggle
 
 # move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
@@ -129,17 +129,6 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 
-# switch to workspace with keypad
-bindsym $mod+KP_1 workspace $ws1
-bindsym $mod+KP_2 workspace $ws2
-bindsym $mod+KP_3 workspace $ws3
-bindsym $mod+KP_4 workspace $ws4
-bindsym $mod+KP_5 workspace $ws5
-bindsym $mod+KP_6 workspace $ws6
-bindsym $mod+KP_7 workspace $ws7
-bindsym $mod+KP_8 workspace $ws8
-bindsym $mod+KP_9 workspace $ws9
-
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
@@ -150,16 +139,6 @@ bindsym $mod+Shift+6 move container to workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
-
-bindsym $mod+Shift+KP_1 move container to workspace $ws1
-bindsym $mod+Shift+KP_2 move container to workspace $ws2
-bindsym $mod+Shift+KP_3 move container to workspace $ws3
-bindsym $mod+Shift+KP_4 move container to workspace $ws4
-bindsym $mod+Shift+KP_5 move container to workspace $ws5
-bindsym $mod+Shift+KP_6 move container to workspace $ws6
-bindsym $mod+Shift+KP_7 move container to workspace $ws7
-bindsym $mod+Shift+KP_8 move container to workspace $ws8
-bindsym $mod+Shift+KP_9 move container to workspace $ws9
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -218,7 +197,7 @@ client.unfocused        $dgrey  $black  $lgrey $black
 client.urgent           $white  $red    $white $red
 
 new_window 1pixel
-#smart_borders on
+smart_borders on
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -241,26 +220,42 @@ bar {
 # assign programs to workspaces
 assign [window_role="browser" ] $ws1
 assign [class="(?i)jetbrains-idea" ] $ws2
-assign [class="(?i)atom"] $ws4
-assign [class="(?i)spotify"] $ws9
-assign [class="slack" ] $ws8
+assign [class="(?i)spotify"] $ws5
 assign [class="pidgin" ] $ws8
 
 # Screenshooter
 bindsym --release Print exec xfce4-screenshooter -f -s "$HOME/Pictures"
 bindsym --release $mod+Print exec xfce4-screenshooter -w -s "$HOME/Pictures"
 
+# switch displays
+exec --no-startup-id ~/.screenlayout/desk.sh
+
 # Compositor
 exec --no-startup-id compton
 
 # XFCE integration
-exec --no-startup-id xfsettingsd --sm-client-disable --no-daemon
-exec --no-startup-id xfce4-volumed --no-daemon
-exec --no-startup-id xfce4-power-manager --no-daemon
+#exec --no-startup-id xfsettingsd --sm-client-disable --no-daemon
+#exec --no-startup-id xfce4-volumed --no-daemon
+#exec --no-startup-id xfce4-power-manager --no-daemon
 exec --no-startup-id nm-applet
 
 # clipboard manager
 exec --no-startup-id clipit
 
 # wallpaper
-exec --no-startup-id nitrogen --restore
+exec --no-startup-id sleep 5; nitrogen --restore
+
+# redshift
+exec --no-startup-id redshift-gtk
+
+# start the button listener
+exec --no-startup-id ~/Tools/btn/test.py
+
+# touch onscreen keyboard
+bindsym $mod+Shift+K exec --no-startup-id onboard
+
+# disable middle-click paste
+# exec --no-startup-id xmodmap -e 'pointer = 1 25 3 4 5 6 7 8 9'
+
+
+exec synclient TapButton1=0 TapButton2=0 TapButton3=0
