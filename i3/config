@@ -17,7 +17,7 @@ font pango:Fantasque Sans Mono 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal --hide-menubar
+bindsym $mod+Return exec i3-sensible-terminal --hide-menubar
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -62,6 +62,9 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # media keys
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
 bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
@@ -241,9 +244,6 @@ exec --no-startup-id nm-applet
 
 # clipboard manager
 exec --no-startup-id clipit
-
-# wallpaper
-exec --no-startup-id sleep 5; nitrogen --restore
 
 # redshift
 exec --no-startup-id redshift-gtk
