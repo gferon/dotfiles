@@ -11,7 +11,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Fantasque Sans Mono 10
+font pango:Fira code 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -25,9 +25,9 @@ bindsym $mod+Shift+q kill
 # lock screen
 bindsym $mod+l exec ~/.config/i3/i3exit lock
 
-# start i3-dmenu-desktop (a program launcher)
-bindsym $mod+d exec i3-dmenu-desktop
-bindsym Mod1+Tab exec rofi -show window 
+# program launcher
+bindsym $mod+d exec rofi -show drun -location 1
+bindsym $mod+Tab exec rofi -show window
 
 # change focus
 bindsym $mod+Left focus left
@@ -62,14 +62,14 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # media keys
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +2%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -2%
+bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short | grep RUNNING | cut -c1-1) toggle
+bindsym XF86AudioRaiseVolume exec notify-send -t 200 "Noisier!1!!" && pactl set-sink-volume $(pactl list short | grep RUNNING | cut -c1-1) +5%
+bindsym XF86AudioLowerVolume exec notify-send -t 200 "Quieter..." && pactl set-sink-volume $(pactl list short | grep RUNNING | cut -c1-1) -5%
 bindsym XF86AudioNext exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 bindsym XF86AudioPrev exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 bindsym XF86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
 
 # switch screens
 bindsym $mod+Shift+F1 exec notify-send "Switched to laptop display only" && ~/.screenlayout/laptop.sh
@@ -169,14 +169,13 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $mode_system Exit (s) shutdown, (r) reboot, (l) lock, (e) logout, (u) suspend, (h) hibernate
+set $mode_system Exit (s) shutdown, (r) reboot, (l) lock, (e) logout, (u) suspend
 mode "$mode_system" {
     bindsym s exec --no-startup-id ~/.config/i3/i3exit shutdown, mode "default"
     bindsym r exec --no-startup-id ~/.config/i3/i3exit reboot, mode "default"
     bindsym l exec --no-startup-id ~/.config/i3/i3exit lock, mode "default"
     bindsym e exec --no-startup-id ~/.config/i3/i3exit logout, mode "default"
     bindsym u exec --no-startup-id ~/.config/i3/i3exit suspend, mode "default"
-    bindsym h exec --no-startup-id ~/.config/i3/i3exit hibernate, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -202,14 +201,17 @@ client.urgent           $white  $red    $white $red
 new_window 1pixel
 smart_borders on
 
+set $transparent #00000000
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        font pango: DejaVu Sans Mono, Fontello 12
-        status_command py3status -s
+        tray_output primary
+        font pango: DejaVu Sans Mono, FontAwesome 12
+        status_command py3status
 	position bottom
 	colors {
-		background #121417
+		background $transparent
 		statusline #deded6
 		separator  #4c5356
 
@@ -220,42 +222,15 @@ bar {
 	}
 }
 
-# assign programs to workspaces
-assign [window_role="browser" ] $ws1
-assign [class="(?i)jetbrains-idea" ] $ws2
-assign [class="(?i)spotify"] $ws5
-assign [class="pidgin" ] $ws8
+# GNOME integration
+exec --no-startup-id nitrogen --restore
+exec --no-startup-id /usr/lib/gnome-settings-daemon/gsd-xsettings
+exec_always --no-startup-id gnome-power-manager
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id gnome-flashback
 
-# Screenshooter
-bindsym --release Print exec xfce4-screenshooter -f -s "$HOME/Pictures"
-bindsym --release $mod+Print exec xfce4-screenshooter -w -s "$HOME/Pictures"
-
-# switch displays
-exec --no-startup-id ~/.screenlayout/desk.sh
-
-# Compositor
-exec --no-startup-id compton
-
-# XFCE integration
-#exec --no-startup-id xfsettingsd --sm-client-disable --no-daemon
-#exec --no-startup-id xfce4-volumed --no-daemon
-#exec --no-startup-id xfce4-power-manager --no-daemon
-exec --no-startup-id nm-applet
-
-# clipboard manager
+# Clipboard manager
 exec --no-startup-id clipit
 
-# redshift
+# Redshift, a blue light filter
 exec --no-startup-id redshift-gtk
-
-# start the button listener
-exec --no-startup-id ~/Tools/btn/test.py
-
-# touch onscreen keyboard
-bindsym $mod+Shift+K exec --no-startup-id onboard
-
-# disable middle-click paste
-# exec --no-startup-id xmodmap -e 'pointer = 1 25 3 4 5 6 7 8 9'
-
-
-exec synclient TapButton1=0 TapButton2=0 TapButton3=0

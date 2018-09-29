@@ -7,7 +7,7 @@ lock() {
     mogrify -scale 10% -scale 1000% /tmp/screen_locked.png
 
     # Lock screen displaying this image.
-    i3lock -i /tmp/screen_locked.png
+    i3lock -e -f -i /tmp/screen_locked.png
 
     # Erase any evidence
     rm /tmp/screen_locked.png
@@ -21,10 +21,7 @@ case "$1" in
         i3-msg exit
         ;;
     suspend)
-        lock; systemctl suspend
-        ;;
-    hibernate)
-        lock; systemctl hibernate
+        systemctl suspend
         ;;
     reboot)
         systemctl reboot
@@ -33,7 +30,7 @@ case "$1" in
         systemctl poweroff
         ;;
     *)
-        echo "Usage: $0 {lock|logout|suspend|hibernate|reboot|shutdown}"
+        echo "Usage: $0 {lock|logout|suspend|reboot|shutdown}"
         exit 2
 esac
 

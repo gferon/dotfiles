@@ -12,13 +12,11 @@ general {
 }
 
 order += "sysdata"
-order += "disk /"
-order += "volume_status"
-#order += "weather_yahoo"
 order += "spotify"
-order += "keyboard_layout"
 order += "battery_level"
-#order += "bitcoin_price"
+order += "wifi"
+order += "keyboard_layout"
+order += "volume_status"
 order += "clock"
 
 sysdata {
@@ -30,25 +28,20 @@ ethernet enp2s0 {
     format_down = "Net: down"
 }
 
-tztime local {
-    format = "%Y-%m-%d %H:%M:%S"
-}
-
 cpu_usage {
     format = "CPU: %usage"
 }
 
-disk "/" {
-    format = "%avail"
+diskdata {
 }
 
-keyboard_layout {
-
-    on_click 1 = "exec setxkbmap us; refresh"
-    on_click 3 = "exec setxkbmap fr; refresh"
-}
+#keyboard_layout {
+#    on_click 1 = "exec setxkbmap us; refresh"
+#    on_click 3 = "exec setxkbmap fr; refresh"
+#}
 
 battery_level {
+    format = "Battery: {percent}%" 
 }
 
 volume_status {
@@ -74,12 +67,12 @@ spotify {
     format_down = ""
 }
 
-bitcoin_price {
-    format_bitcoin = "BTC: {price}{symbol}"
-    markets = "krakenEUR"
-}
-
 clock {
-    format_time = "%Y-%m-%d %H:%M:%S"
+    format = ["{Europe/Berlin}"]
+    format_time = "%Y-%m-%d %H:%M"
 }
 
+wifi {
+    on_click 1 = "exec gnome-control-center network"
+    on_click 3 = "exec [ $(nmcli radio wifi) = 'enabled' ] && nmcli radio wifi off || nmcli radio wifi on"
+}
