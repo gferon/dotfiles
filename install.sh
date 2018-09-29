@@ -1,17 +1,14 @@
-#!/bin/sh
-set -e
+#!/bin/bash -eu
 
-command_exists () {
-    command -v "$1" &> /dev/null ;
+install_package() {
+  $(which apt) && apt install $1 && return
+  $(which dnf) && dnf install $1 && return
 }
 
-if [ -x $(command_exists i3) ]; then
-  echo "i3 is installed, symlinking configuration"
-  rm -f ~/.config/i3
-  rm -f ~/.config/i3status
-  ln -s $PWD/i3 ~/.config/i3
-  ln -s $PWD/i3status ~/.config/i3status
-  echo "if you didn't do it already, you should cd i3-gnome; run make install"
-  cd i3-gnome
-  PREFIX=/usr/local sudo -E make install
-fi
+i3 --version || install_package i3-gaps
+echo "i3 is installed, symlinking configuration"
+ln -snf $PWD/i3 ~/.config/i3
+ln -snf $PWD/i3status ~/.config/i3status
+pushd i3-gnome
+PREFIX=/usr/local sudo -E make install
+popd
