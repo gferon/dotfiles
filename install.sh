@@ -1,14 +1,21 @@
-#!/bin/bash -eu
+#!/bin/bash -eux
 
-install_package() {
-  $(which apt) && apt install $1 && return
-  $(which dnf) && dnf install $1 && return
+exists() {
+  if hash $1 2>/dev/null; then
+    echo "$1 is installed, looking good!"
+  else
+    echo "$1 is NOT installed, halp!"
+  fi
 }
 
-i3 --version || install_package i3-gaps
-echo "i3 is installed, symlinking configuration"
-ln -snf $PWD/i3 ~/.config/i3
-ln -snf $PWD/i3status ~/.config/i3status
-pushd i3-gnome
-PREFIX=/usr/local sudo -E make install
-popd
+exists sway
+exists swayidle
+exists swaylock
+exists i3status-rs
+exists clipman
+exists wl-paste
+
+mkdir -p ~/.config/{sway,swaylock,i3status-rust}
+ln -sf sway/* ~/.config/sway/
+ln -sf swaylock/* ~/.config/swaylock/
+ln -sf i3status-rust ~/.config/i3status-rust/
