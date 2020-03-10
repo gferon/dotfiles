@@ -16,6 +16,7 @@ exists wl-paste
 exists playerctl
 exists j4-dmenu-desktop
 exists alacritty
+exists mako
 
 echo "symlinking configuration"
 set -x
