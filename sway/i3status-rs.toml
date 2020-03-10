@@ -2,6 +2,10 @@ theme = "solarized-dark"
 icons = "awesome"
 
 [[block]]
+block = "focused_window"
+max_width = 32
+
+[[block]]
 block = "disk_space"
 path = "/"
 alias = "/"
@@ -12,14 +16,17 @@ warning = 20.0
 alert = 10.0
 
 [[block]]
-block = "disk_space"
-path = "/home"
-alias = "/home"
-info_type = "available"
-unit = "GB"
-interval = 20
-warning = 20.0
-alert = 10.0
+block = "net"
+device = "wlp6s0"
+ssid = false
+signal_strength = false
+ip = false
+speed_up = false
+speed_down = true
+graph_up = false
+graph_down = false
+interval = 5
+use_bits = false
 
 [[block]]
 block = "memory"
@@ -30,11 +37,6 @@ format_swap = "{SUp}%"
 [[block]]
 block = "cpu"
 interval = 1
-
-[[block]]
-block = "load"
-interval = 1
-format = "{1m}"
 
 [[block]]
 block = "sound"
