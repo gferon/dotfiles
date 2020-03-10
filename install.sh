@@ -22,6 +22,7 @@ set -x
 mkdir -p ~/.config/{sway,swaylock}
 ln -sf $PWD/sway/* ~/.config/sway/
 ln -sf $PWD/swaylock/* ~/.config/swaylock/
+ln -sf $PWD/zprofile ~/.zprofile
 swaymsg reload
 
 echo "getting wallpapers"
