@@ -19,15 +19,14 @@ exists alacritty
 exists mako
 exists wofi
 
-echo "symlinking configuration"
-set -x
+echo "symlinking configuration files"
 mkdir -p ~/.config/{sway,swaylock}
-ln -sf $PWD/sway/* ~/.config/sway/
-ln -sf $PWD/swaylock/* ~/.config/swaylock/
-ln -sf $PWD/zprofile ~/.zprofile  # for zsh
-ln -sf $PWD/zprofile ~/.profile   # for bash
-swaymsg reload
+ln -vsf $PWD/sway/* ~/.config/sway/
+ln -vsf $PWD/swaylock/* ~/.config/swaylock/
+ln -vsf $PWD/zprofile ~/.zprofile
+sudo cp -v sway.desktop /usr/share/wayland-sessions/sway.desktop
 
-echo "getting wallpapers"
-curl -Lfo ~/.config/swaylock/lock.png http://static.simpledesktops.com/uploads/desktops/2020/01/19/Uno_Xray.png
-
+if [ ! -f ~/.config/swaylock/lock.png ]; then
+  echo "downloading wallpapers"
+  curl -Lfo ~/.config/swaylock/lock.png http://static.simpledesktops.com/uploads/desktops/2020/01/19/Uno_Xray.png
+fi
