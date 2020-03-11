@@ -39,6 +39,11 @@ block = "cpu"
 interval = 1
 
 [[block]]
+block = "bluetooth"
+mac = "CC:98:8B:21:79:D6"
+label = " Sony Headset"
+
+[[block]]
 block = "sound"
 
 [[block]]

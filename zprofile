@@ -1,7 +1,5 @@
 # This will be evaluated before sway starts
 # so the sway process itself has this environment
-echo $DESKTOP_SESSION  >> /tmp/hello.log
-echo "hi" >> /tmp/hello.log
 if [ -n "$DESKTOP_SESSION" ]; then
   # Secrets management
   eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
