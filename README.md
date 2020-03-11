@@ -4,6 +4,8 @@ My humble collection of .dotfiles I use at home and at work.
 
 Requirements can be found in the [install.sh](./install.sh) script.
 
+This has been tested with Fedora 31.
+
 ## Usage
 
 Just run the install script, and create a `~/.config/sway/output` file to configure your monitors 
