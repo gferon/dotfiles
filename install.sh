@@ -23,7 +23,7 @@ echo "symlinking configuration files"
 mkdir -p ~/.config/{sway,swaylock}
 ln -vsf $PWD/sway/* ~/.config/sway/
 ln -vsf $PWD/swaylock/* ~/.config/swaylock/
-ln -vsf $PWD/zprofile ~/.zprofile
+ln -vsf $PWD/zlogin ~/.zlogin
 sudo cp -v sway.desktop /usr/share/wayland-sessions/sway.desktop
 
 if [ ! -f ~/.config/swaylock/lock.png ]; then
