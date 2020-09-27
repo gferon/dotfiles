@@ -32,5 +32,5 @@ fi
 
 if [ ! -f ~/.config/swaylock/lock.png ]; then
   echo "downloading wallpapers"
-  curl -Lfo ~/.config/swaylock/lock.png http://static.simpledesktops.com/uploads/desktops/2020/01/19/Uno_Xray.png
+  curl -Lfo ~/.config/swaylock/lock.png http://static.simpledesktops.com/uploads/desktops/2019/11/08/Norhtern_Lights.png
 fi
