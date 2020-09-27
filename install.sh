@@ -10,21 +10,25 @@ exists() {
 exists sway
 exists swayidle
 exists swaylock
-exists i3status-rs
+#exists i3status-rs
 exists clipman
 exists wl-paste
 exists playerctl
-exists j4-dmenu-desktop
 exists alacritty
 exists mako
 exists wofi
+exists nmtui
+exists waybar
 
 echo "symlinking configuration files"
 mkdir -p ~/.config/{sway,swaylock}
 ln -vsf $PWD/sway/* ~/.config/sway/
 ln -vsf $PWD/swaylock/* ~/.config/swaylock/
 ln -vsf $PWD/zlogin ~/.zlogin
-sudo cp -v sway.desktop /usr/share/wayland-sessions/sway.desktop
+
+if [ ! -f /usr/share/wayland-sessions/sway.desktop ]; then
+  sudo cp -v sway.desktop /usr/share/wayland-sessions/sway.desktop
+fi
 
 if [ ! -f ~/.config/swaylock/lock.png ]; then
   echo "downloading wallpapers"

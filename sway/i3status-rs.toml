@@ -2,10 +2,6 @@ theme = "solarized-dark"
 icons = "awesome"
 
 [[block]]
-block = "focused_window"
-max_width = 32
-
-[[block]]
 block = "disk_space"
 path = "/"
 alias = "/"
@@ -17,9 +13,9 @@ alert = 10.0
 
 [[block]]
 block = "net"
-device = "wlp6s0"
+device = "wlp1s0"
 ssid = false
-signal_strength = false
+signal_strength = true
 ip = false
 speed_up = false
 speed_down = true
@@ -28,15 +24,15 @@ graph_down = false
 interval = 5
 use_bits = false
 
-[[block]]
-block = "memory"
-display_type = "memory"
-format_mem = "{Mup}%"
-format_swap = "{SUp}%"
+#[[block]]
+#block = "memory"
+#display_type = "memory"
+#format_mem = "{Mup}%"
+#format_swap = "{SUp}%"
 
 [[block]]
 block = "cpu"
-interval = 1
+interval = 5
 
 [[block]]
 block = "bluetooth"

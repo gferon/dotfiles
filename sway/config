@@ -15,8 +15,12 @@ set $term alacritty
 # on the original workspace that the command was run on.
 set $menu dmenu_path | wofi --show drun -i | xargs swaymsg exec --
 
+### Input configuration
+input type:touchpad natural_scroll enabled
+
 ### Output configuration
 include output
+output "*" bg ~/Pictures/Big_Sur_Simple.png fill
 
 # Disable focus following the mouse cursor
 focus_follows_mouse no
@@ -123,6 +127,9 @@ bindsym $mod+L exec swaylock
 #
 # Layout stuff:
 #
+    # Enable gaps
+    gaps inner 8    
+
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
@@ -179,11 +186,17 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 #
-# Media controls
+# Keyboard controls
 #
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86MonBrightnessUp exec light -A 10
+bindsym XF86MonBrightnessDown exec light -U 10
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 #
 # Status Bar:
@@ -210,5 +223,6 @@ bar {
 #
 
 # Clipboard manager
-exec wl-paste -t text --watch ~/.local/bin/clipman store
+exec wl-paste -t text --watch clipman store
+exec wl-paste -p -t text --watch clipman store -P --histpath="~/.local/share/clipman-primary.json
 bindsym $mod+comma exec ~/.local/bin/clipman pick --notify --tool wofi -T'--prompt=clipboard-entries -i'
