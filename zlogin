@@ -5,9 +5,6 @@ if [ -n "$DESKTOP_SESSION" ]; then
   eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
   export SSH_AUTH_SOCK
 
-  # in general, we light dark things
-  export GTK_THEME="Adwaita-dark"
-
   # force Firefox to use Wayland
   export MOZ_ENABLE_WAYLAND=1
 
